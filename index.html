@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RanDom Quete Generator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #222;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto;
+            flex-direction: column;
+            
+        }
+        h1{
+            color: #fff;
+            font-weight: 900;
+            font-size: xx-large;
+        }
+        .content{
+            margin-top: 20px;
+        }
+        #btn{
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: x-large;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        #btn:hover{
+            background-color: #ffff00;
+        }
+        #author{
+            font-weight: 800;
+            color: #00ffff;
+        }
+        #quete{
+            font-weight: 800;
+            color: #008000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RanDom Quete Generator</h1>
+        <h2 id="quete" class="content"></h2>
+        <h2 id="author" class="content"></h2>
+        <button id="btn" class="content">Generete Quete</button>
+    </div>
+
+    <script>
+        let btn = document.getElementById('btn');
+        let quete = document.getElementById('quete');
+
+        let author = document.getElementById('author');
+        
+        async function generateQuete(){
+            let res = await fetch('https://type.fit/api/quotes');
+
+            let data = await res.json();
+
+            let randomNumber = parseInt((Math.random() * 15) + 0);
+
+            quete.innerHTML = data[randomNumber].text;
+
+            author.innerHTML = data[randomNumber].author;
+        }
+
+        btn.addEventListener('click',generateQuete)
+    </script>
+</body>
+</html>
